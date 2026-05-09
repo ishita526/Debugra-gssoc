@@ -208,14 +208,14 @@ export default function EditorPage({ user }) {
             Fix
           </button>
           <div className="d-flex align-items-center gap-1">
-            <button className="toolbar-icon-btn" onClick={editor.downloadCode} title="Download">
+            <button className="toolbar-icon-btn" aria-label="Download Code" onClick={editor.downloadCode} title="Download">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             </button>
-            <button className="toolbar-icon-btn" onClick={editor.saveToCloud} title="Save to cloud" disabled={room.isReadOnly}>
+            <button className="toolbar-icon-btn" aria-label="Save to Cloud" onClick={editor.saveToCloud} title="Save to cloud" disabled={room.isReadOnly}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             </button>
             {user && (
-              <button className="toolbar-icon-btn" onClick={() => setShowHistory(!showHistory)} title="History"
+              <button className="toolbar-icon-btn" aria-label="Toggle History" onClick={() => setShowHistory(!showHistory)} title="History"
                 style={showHistory ? { background: 'var(--bg-active)', color: 'var(--accent)' } : {}}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               </button>

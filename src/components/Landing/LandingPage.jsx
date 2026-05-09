@@ -180,7 +180,7 @@ export default function LandingPage() {
           <button onClick={() => setShowLogin(true)} className="landing-btn-outline">Log In</button>
           <button onClick={() => { setIsSignUp(true); setShowLogin(true); }} className="landing-btn-primary">Sign Up Free</button>
         </div>
-        <button className="mobile-menu-btn mobile-only" onClick={() => setMobileMenu(!mobileMenu)}>
+        <button className="mobile-menu-btn mobile-only" aria-label="Toggle mobile menu" aria-expanded={mobileMenu} onClick={() => setMobileMenu(!mobileMenu)}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" strokeWidth="2" strokeLinecap="round">
             {mobileMenu
               ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>
@@ -376,9 +376,7 @@ export default function LandingPage() {
       {/* ===== FOOTER ===== */}
       <footer className="landing-footer">
         <div className="d-flex align-items-center gap-2 justify-content-center mb-1">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#4ec9b0"/>
-          </svg>
+          <img src="/icon-dark.svg" height="14" alt="Debugra Logo" />
           <span style={{ fontWeight: 600, color: '#e2e8f0' }}>Debugra</span>
         </div>
         <p style={{ margin: 0, fontSize: '0.72rem', color: '#4a4a6a' }}>Built for Hackathon SVKM 2026 · <a href="https://github.com/omkhandare55/Debugra" style={{ color: '#6a6a8a', textDecoration: 'none' }}>GitHub</a></p>
@@ -403,9 +401,9 @@ export default function LandingPage() {
             </div>
 
             <form onSubmit={handleSubmit}>
-              {isSignUp && <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Full Name" className="modal-input" required />}
-              <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" type="email" className="modal-input" required />
-              <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" className="modal-input" required minLength={6} />
+              {isSignUp && <input value={name} onChange={(e) => setName(e.target.value)} aria-label="Full Name" placeholder="Full Name" className="modal-input" required />}
+              <input value={email} onChange={(e) => setEmail(e.target.value)} aria-label="Email address" placeholder="Email" type="email" className="modal-input" required />
+              <input value={password} onChange={(e) => setPassword(e.target.value)} aria-label="Password" placeholder="Password" type="password" className="modal-input" required minLength={6} />
               <button type="submit" disabled={loading} className="landing-btn-primary" style={{ width: '100%', padding: '10px', marginTop: '4px' }}>
                 {loading ? 'Please wait...' : isSignUp ? 'Create Account' : 'Sign In'}
               </button>
