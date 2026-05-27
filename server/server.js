@@ -80,17 +80,37 @@ app.use((req, res, next) => {
 // ──────────────────────────────────────────────
 app.use(cors({
   origin(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow no-Origin header only in dev (curl / server-to-server testing).
+    // In production every request must come from an explicitly allowed origin.
+    if ((!origin && !isProd) || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
-
-    return callback(new Error('Not allowed by CORS'));
+    const corsError = new Error('Not allowed by CORS');
+    corsError.status = 403;
+    return callback(corsError);
   },
   credentials: true,
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Groq-Api-Key'],
   optionsSuccessStatus: 204,
 }));
+
+// ──────────────────────────────────────────────
+// Cookie Security
+// ──────────────────────────────────────────────
+// Wrap res.cookie so every cookie this API emits carries secure flags,
+// regardless of where in the middleware chain it is set.
+app.use((req, res, next) => {
+  const originalCookie = res.cookie.bind(res);
+  res.cookie = (name, value, options = {}) =>
+    originalCookie(name, value, {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: 'strict',
+      ...options,
+    });
+  next();
+});
 
 // ──────────────────────────────────────────────
 // Rate Limiting
