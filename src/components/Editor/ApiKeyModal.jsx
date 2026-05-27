@@ -68,20 +68,37 @@ export default function ApiKeyModal({ onClose, onStatusChange }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <form className="modal-box api-key-modal" onSubmit={handleSave} onClick={(event) => event.stopPropagation()}>
+      <form
+        className="modal-box api-key-modal"
+        onSubmit={handleSave}
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="modal-header-row">
           <div>
             <h2 className="modal-title-left">Groq API Key</h2>
-            <p className="modal-muted">Encrypted locally with AES-GCM and unlocked only for this browser session.</p>
+            <p className="modal-muted">
+              Encrypted locally with AES-GCM and unlocked only for this browser session.
+            </p>
           </div>
-          <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Close API key settings">×</button>
+          <button
+            type="button"
+            className="modal-close-btn"
+            onClick={onClose}
+            aria-label="Close API key settings"
+          >
+            ×
+          </button>
         </div>
 
         {!cryptoAvailable && (
-          <div className="api-key-warning">This browser does not support Web Crypto secure storage.</div>
+          <div className="api-key-warning">
+            This browser does not support Web Crypto secure storage.
+          </div>
         )}
 
-        <label className="api-key-label" htmlFor="groq-api-key">API key</label>
+        <label className="api-key-label" htmlFor="groq-api-key">
+          API key
+        </label>
         <input
           id="groq-api-key"
           className="api-key-input"
@@ -93,7 +110,9 @@ export default function ApiKeyModal({ onClose, onStatusChange }) {
           disabled={!cryptoAvailable || isSaving}
         />
 
-        <label className="api-key-label" htmlFor="groq-passphrase">Passphrase</label>
+        <label className="api-key-label" htmlFor="groq-passphrase">
+          Passphrase
+        </label>
         <input
           id="groq-passphrase"
           className="api-key-input"
@@ -106,16 +125,30 @@ export default function ApiKeyModal({ onClose, onStatusChange }) {
         />
 
         <div className="api-key-actions">
-          <button type="submit" className="run-btn" disabled={!cryptoAvailable || isSaving || !apiKey || !passphrase}>
+          <button
+            type="submit"
+            className="run-btn"
+            disabled={!cryptoAvailable || isSaving || !apiKey || !passphrase}
+          >
             Save
           </button>
-          <button type="button" className="clear-btn" onClick={handleUnlock} disabled={!cryptoAvailable || isSaving || !stored || !passphrase}>
+          <button
+            type="button"
+            className="clear-btn"
+            onClick={handleUnlock}
+            disabled={!cryptoAvailable || isSaving || !stored || !passphrase}
+          >
             Unlock
           </button>
           <button type="button" className="clear-btn" onClick={handleLock} disabled={isSaving}>
             Lock
           </button>
-          <button type="button" className="clear-btn danger" onClick={handleClear} disabled={isSaving || !stored}>
+          <button
+            type="button"
+            className="clear-btn danger"
+            onClick={handleClear}
+            disabled={isSaving || !stored}
+          >
             Clear
           </button>
         </div>

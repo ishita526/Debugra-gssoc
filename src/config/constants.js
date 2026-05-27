@@ -8,6 +8,15 @@ export const DEFAULT_FONT_SIZE = 14;
 export const MIN_FONT_SIZE = 10;
 export const MAX_FONT_SIZE = 28;
 
+// ─── Editor Themes ────────────────────────────────────────────────────────────
+export const DEFAULT_THEME = 'vs-dark';
+export const EDITOR_THEMES = [
+  { id: 'vs-dark', label: 'VS Dark' },
+  { id: 'vs', label: 'VS Light' },
+  { id: 'dracula', label: 'Dracula' },
+  { id: 'monokai', label: 'Monokai' },
+];
+
 // ─── Output / Panel Widths ────────────────────────────────────────────────────
 export const DEFAULT_OUTPUT_WIDTH = 420;
 export const MIN_OUTPUT_WIDTH = 260;

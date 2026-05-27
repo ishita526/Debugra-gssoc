@@ -19,46 +19,49 @@ export function useAI({ language, code, stderr, setCode, setActiveOutputTab, edi
   const [aiResponse, setAiResponse] = useState(null);
   const [isAILoading, setIsAILoading] = useState(false);
 
-  const withAI = useCallback(async (action) => {
-    setIsAILoading(true);
-    setActiveOutputTab(OUTPUT_TABS.AI);
-    try {
-      const result = await action();
-      setAiResponse(result);
-    } catch (err) {
-      toast.error(err.message || 'AI request failed');
-    } finally {
-      setIsAILoading(false);
-    }
-  }, [setActiveOutputTab]);
+  const withAI = useCallback(
+    async (action) => {
+      setIsAILoading(true);
+      setActiveOutputTab(OUTPUT_TABS.AI);
+      try {
+        const result = await action();
+        setAiResponse(result);
+      } catch (err) {
+        toast.error(err.message || 'AI request failed');
+      } finally {
+        setIsAILoading(false);
+      }
+    },
+    [setActiveOutputTab]
+  );
 
-  const fix = useCallback(() =>
-    withAI(async () => {
-      const result = await aiFixCode(code, stderr, LANGUAGES[language].name);
-      return result;
-    }),
+  const fix = useCallback(
+    () =>
+      withAI(async () => {
+        const result = await aiFixCode(code, stderr, LANGUAGES[language].name);
+        return result;
+      }),
     [withAI, code, stderr, language]
   );
 
-  const explain = useCallback(() =>
-    withAI(async () => {
-      const sel = editorRef?.current?.getSelection();
-      const selectedCode =
-        sel && !sel.isEmpty()
-          ? editorRef.current.getModel().getValueInRange(sel)
-          : code;
-      return await aiExplainLogic(selectedCode, LANGUAGES[language].name);
-    }),
+  const explain = useCallback(
+    () =>
+      withAI(async () => {
+        const sel = editorRef?.current?.getSelection();
+        const selectedCode =
+          sel && !sel.isEmpty() ? editorRef.current.getModel().getValueInRange(sel) : code;
+        return await aiExplainLogic(selectedCode, LANGUAGES[language].name);
+      }),
     [withAI, code, language, editorRef]
   );
 
-  const visualize = useCallback(() =>
-    withAI(() => aiVisualizeExecution(code, LANGUAGES[language].name)),
+  const visualize = useCallback(
+    () => withAI(() => aiVisualizeExecution(code, LANGUAGES[language].name)),
     [withAI, code, language]
   );
 
-  const generateTests = useCallback(() =>
-    withAI(() => aiGenerateTests(code, LANGUAGES[language].name)),
+  const generateTests = useCallback(
+    () => withAI(() => aiGenerateTests(code, LANGUAGES[language].name)),
     [withAI, code, language]
   );
 

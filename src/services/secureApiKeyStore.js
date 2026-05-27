@@ -10,8 +10,7 @@ const decoder = new TextDecoder();
 
 const toBase64 = (bytes) => btoa(String.fromCharCode(...bytes));
 
-const fromBase64 = (value) =>
-  Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
+const fromBase64 = (value) => Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
 
 export function hasWebCrypto() {
   return Boolean(globalThis.crypto?.subtle && globalThis.crypto?.getRandomValues);
@@ -41,9 +40,11 @@ async function deriveKey(passphrase, salt) {
 }
 
 function notifyKeyChange() {
-  window.dispatchEvent(new CustomEvent(SESSION_EVENT, {
-    detail: { unlocked: Boolean(sessionApiKey), stored: isSecureApiKeyStored() },
-  }));
+  window.dispatchEvent(
+    new CustomEvent(SESSION_EVENT, {
+      detail: { unlocked: Boolean(sessionApiKey), stored: isSecureApiKeyStored() },
+    })
+  );
 }
 
 export function isSecureApiKeyStored() {
@@ -77,15 +78,18 @@ export async function encryptAndStoreApiKey(apiKey, passphrase) {
     encoder.encode(apiKey.trim())
   );
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({
-    version: 1,
-    algorithm: 'AES-GCM',
-    kdf: 'PBKDF2-SHA256',
-    iterations: ITERATIONS,
-    salt: toBase64(salt),
-    iv: toBase64(iv),
-    ciphertext: toBase64(new Uint8Array(ciphertext)),
-  }));
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({
+      version: 1,
+      algorithm: 'AES-GCM',
+      kdf: 'PBKDF2-SHA256',
+      iterations: ITERATIONS,
+      salt: toBase64(salt),
+      iv: toBase64(iv),
+      ciphertext: toBase64(new Uint8Array(ciphertext)),
+    })
+  );
 
   sessionApiKey = apiKey.trim();
   notifyKeyChange();
