@@ -27,9 +27,14 @@ export function useEditor({ user, onNeedAuth }) {
   const [stdinValue, setStdinValue] = useState('');
   const [stdinOpen, setStdinOpen] = useState(false);
 
-  const needsInput = useMemo(() => {
-    const pattern = INPUT_PATTERNS[language];
-    return pattern ? pattern.test(code) : false;
+  const [needsInput, setNeedsInput] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const pattern = INPUT_PATTERNS[language];
+      setNeedsInput(pattern ? pattern.test(code) : false);
+    }, 500);
+    return () => clearTimeout(timer);
   }, [code, language]);
 
   useEffect(() => {
