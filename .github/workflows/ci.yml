@@ -24,13 +24,13 @@ jobs:
             server/package-lock.json
 
       - name: Install Frontend Dependencies
-        run: npm install --no-audit --no-fund
+        run: npm ci
 
       - name: Verify Frontend Production Build
         run: npm run build
 
       - name: Install Backend Dependencies
-        run: npm install --prefix server --no-audit --no-fund
+        run: npm ci --prefix server
 
       - name: Verify Backend Syntax
         run: |
