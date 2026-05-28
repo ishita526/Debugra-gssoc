@@ -18,9 +18,9 @@ export const EDITOR_FONTS = [
 ];
 
 // ─── Editor Themes ────────────────────────────────────────────────────────────
-export const DEFAULT_THEME = 'vs-dark';
+export const DEFAULT_THEME = 'debugra-dark';
 export const EDITOR_THEMES = [
-  { id: 'vs-dark', label: 'VS Dark' },
+  { id: 'debugra-dark', label: 'Debugra Dark' },
   { id: 'vs', label: 'VS Light' },
   { id: 'dracula', label: 'Dracula' },
   { id: 'monokai', label: 'Monokai' },
