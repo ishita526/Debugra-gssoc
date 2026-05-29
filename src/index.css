@@ -117,7 +117,9 @@ body.light-theme .toolbar-icon-btn:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
   z-index: 10;
 }
 
@@ -125,7 +127,6 @@ body.light-theme .toolbar-icon-btn:hover {
   background-color: rgba(255, 255, 255, 0.08);
   color: #e2e8f0; /* Brighter color on hover */
 }
-
 
 /* ============ RESET ============ */
 *,
@@ -549,6 +550,28 @@ body.light-theme {
   display: flex;
 }
 
+.settings-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(10, 10, 10, 0.5);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 88px 24px 24px;
+}
+
+.settings-modal {
+  width: min(360px, 100%);
+  max-height: calc(100dvh - 112px);
+  overflow: auto;
+  padding: 12px;
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+}
+
 .audio-settings-popover {
   position: fixed;
   top: 86px;
@@ -767,6 +790,15 @@ body.light-theme {
 #editor-container {
   flex: 1;
   overflow: hidden;
+}
+
+#editor-container.minimap-disabled .monaco-editor .minimap,
+#editor-container.minimap-disabled .monaco-editor .decorationsOverviewRuler {
+  display: none !important;
+}
+
+#editor-container.minimap-disabled .monaco-editor .monaco-scrollable-element {
+  margin-right: 0 !important;
 }
 
 /* ============ OUTPUT PANE ============ */
@@ -2043,6 +2075,17 @@ body.light-theme {
     right: 8px;
     width: min(240px, 92vw);
   }
+  .settings-modal-backdrop {
+    align-items: flex-end;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .settings-modal {
+    width: 100%;
+    max-height: 76dvh;
+    border-radius: 12px;
+  }
   .topbar {
     padding: 0 8px;
   }
@@ -2729,9 +2772,11 @@ details[open] .debug-stderr-summary::before {
   /* Link browser engine filtering directly to your dynamic custom property hook */
   backdrop-filter: blur(var(--blur-intensity, 10px)) !important;
   -webkit-backdrop-filter: blur(var(--blur-intensity, 10px)) !important; /* Safari compatibility */
-  
+
   /* Smooth transition rendering animations when sliding */
-  transition: backdrop-filter 0.1s ease-out, -webkit-backdrop-filter 0.1s ease-out;
+  transition:
+    backdrop-filter 0.1s ease-out,
+    -webkit-backdrop-filter 0.1s ease-out;
 }
 /* Expand the settings popover bounding box to display the new options */
 .custom-layout-popover {
