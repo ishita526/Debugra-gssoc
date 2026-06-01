@@ -807,10 +807,12 @@ export default function EditorPage({ user }) {
               className="ai-btn"
               onClick={ai.generateTests}
               disabled={ai.isAILoading || room.isReadOnly}
+              title="Generate unit tests"
             >
-              Tests
+              <i className="bi bi-patch-check" style={{ fontSize: '0.75rem' }} />
+              <span className="d-none d-xl-inline ms-1">Tests</span>
             </button>
-            <button className="ai-btn" onClick={ai.audit} disabled={ai.isAILoading}>
+            <button className="ai-btn" onClick={ai.audit} disabled={ai.isAILoading} title="Security & quality audit">
               <svg
                 width="12"
                 height="12"
@@ -822,9 +824,9 @@ export default function EditorPage({ user }) {
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 <path d="M9 12l2 2 4-5" />
               </svg>
-              Audit
+              <span className="d-none d-xl-inline ms-1">Audit</span>
             </button>
-            <button className="ai-btn" onClick={ai.visualize} disabled={ai.isAILoading}>
+            <button className="ai-btn" onClick={ai.visualize} disabled={ai.isAILoading} title="Visualize execution step-by-step">
               <svg
                 width="12"
                 height="12"
@@ -837,9 +839,9 @@ export default function EditorPage({ user }) {
                 <line x1="2" y1="12" x2="22" y2="12" />
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
               </svg>
-              Visualize
+              <span className="d-none d-xl-inline ms-1">Visualize</span>
             </button>
-            <button className="ai-btn" onClick={ai.explain} disabled={ai.isAILoading}>
+            <button className="ai-btn" onClick={ai.explain} disabled={ai.isAILoading} title="Explain selected code snippet">
               <svg
                 width="12"
                 height="12"
@@ -851,7 +853,7 @@ export default function EditorPage({ user }) {
                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
               </svg>
-              Explain
+              <span className="d-none d-xl-inline ms-1">Explain</span>
             </button>
             <button
               className="ai-btn"
@@ -879,13 +881,14 @@ export default function EditorPage({ user }) {
               >
                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
               </svg>
-              Big-O
+              <span className="d-none d-xl-inline ms-1">Big-O</span>
             </button>
           </div>
           <button
             className="ai-btn fix"
             onClick={ai.fix}
             disabled={ai.isAILoading || room.isReadOnly}
+            title="Auto-fix code with AI solution"
           >
             <svg
               width="12"
@@ -897,7 +900,7 @@ export default function EditorPage({ user }) {
             >
               <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
             </svg>
-            Fix
+            <span className="d-none d-xl-inline ms-1">Fix</span>
           </button>
           <div className="d-flex align-items-center gap-1">
             <button

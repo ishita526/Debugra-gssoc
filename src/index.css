@@ -4251,3 +4251,22 @@ details[open] .debug-stderr-summary::before {
   .breakdown-note { display: none; }
   .d-none.d-md-block { display: none !important; }
 }
+
+/* Toolbar optimization for medium screens (768px to 1200px) to prevent overflow */
+@media (max-width: 1200px) {
+  .lang-select {
+    min-width: 100px !important;
+    padding: 4px 6px !important;
+  }
+  .font-size-ctrl span {
+    display: none !important;
+  }
+  .minimap-side-ctrl span {
+    display: none !important;
+  }
+  .ai-btn {
+    padding: 4px 6px !important;
+    font-size: 0.68rem !important;
+  }
+}
+
