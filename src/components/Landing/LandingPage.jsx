@@ -355,6 +355,20 @@ export default function LandingPage() {
     };
   }, []);
 
+  // Back-to-top visibility — show after scrolling 400 px
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 400);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Reset confirm-password state whenever the user toggles login ↔ sign-up
+  useEffect(() => {
+    setConfirmPassword('');
+    setShowConfirmPassword(false);
+    setShowPassword(false);
+  }, [isSignUp]);
+
   const scrollFeaturesCarousel = (direction) => {
     const carousel = featuresCarouselRef.current;
     if (!carousel) return;
@@ -375,6 +389,9 @@ export default function LandingPage() {
     }
   };
   const [showPassword, setShowPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   const handleGoogle = async () => {
     try {
@@ -388,6 +405,10 @@ export default function LandingPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSignUp && password !== confirmPassword) {
+      toast.error('Passwords do not match');
+      return;
+    }
     setLoading(true);
     try {
       if (isSignUp) {
@@ -1049,6 +1070,28 @@ export default function LandingPage() {
 </footer>
 
 
+      {/* ===== BACK TO TOP ===== */}
+      {showBackToTop && (
+        <button
+          className="back-to-top-btn"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Back to top"
+          title="Scroll back to top"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          >
+            <polyline points="18 15 12 9 6 15" />
+          </svg>
+        </button>
+      )}
+
       {/* ===== LOGIN MODAL ===== */}
       {showLogin && (
         <div className="modal-backdrop" onClick={() => setShowLogin(false)}>
@@ -1125,15 +1168,43 @@ export default function LandingPage() {
                 <button
                   type="button"
                   className="password-toggle"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                   onClick={() => setShowPassword(!showPassword)}
                 >
+                  {/* Icon shows current state: EyeOff = hidden, Eye = visible (#513) */}
                   {showPassword ? (
-                    <EyeOff size={18} strokeWidth={2} />
-                  ) : (
                     <Eye size={18} strokeWidth={2} />
+                  ) : (
+                    <EyeOff size={18} strokeWidth={2} />
                   )}
                 </button>
               </div>
+              {isSignUp && (
+                <div className="password-wrapper">
+                  <input
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    aria-label="Confirm Password"
+                    placeholder="Confirm Password"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    className="modal-input"
+                    required
+                    minLength={6}
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle"
+                    aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? (
+                      <Eye size={18} strokeWidth={2} />
+                    ) : (
+                      <EyeOff size={18} strokeWidth={2} />
+                    )}
+                  </button>
+                </div>
+              )}
             </form>
 
             <p className="modal-toggle">
