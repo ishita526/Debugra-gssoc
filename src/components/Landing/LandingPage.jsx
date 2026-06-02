@@ -291,7 +291,23 @@ const TAG_COLORS = {
   Editor: { bg: 'rgba(59,130,246,0.12)', color: '#60a5fa' },
   Engine: { bg: 'rgba(249,115,22,0.12)', color: '#fb923c' },
 };
-
+const REVIEWS = [
+  {
+    name: 'Alex',
+    rating: 5,
+    review: 'Excellent debugging platform. The AI explanations are incredibly helpful.',
+  },
+  {
+    name: 'Sarah',
+    rating: 5,
+    review: 'The execution visualizer helped me understand recursion much faster.',
+  },
+  {
+    name: 'John',
+    rating: 4,
+    review: 'Clean interface and smooth collaboration features.',
+  },
+];
 export default function LandingPage() {
   const navigate = useNavigate();
   const featuresCarouselRef = useRef(null);
@@ -818,18 +834,85 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="feedback" className="landing-section container text-center">
-        <div className="section-header">
-          <p className="section-eyebrow">Feedback</p>
-          <h2 className="section-title">Help shape Debugra</h2>
-          <p className="section-subtitle">
-            Share suggestions, bug reports, reviews, or anything the team should know.
-          </p>
-          <button onClick={() => navigate('/feedback')} className="landing-btn-primary">
-            Open feedback form
-          </button>
+  {/* <div className="reviews-grid">
+    {REVIEWS.map((review, index) => (
+      <div key={index} className="review-card">
+        <div className="review-stars">
+          {'★'.repeat(review.rating)}
         </div>
-      </section>
+
+        <p className="review-text">
+          "{review.review}"
+        </p>
+
+        <span className="review-author">
+          — {review.name}
+        </span>
+      </div>
+    ))}
+  </div> */}
+  <div className="reviews-carousel">
+  <div className="reviews-track">
+    {[...REVIEWS, ...REVIEWS].map((review, index) => (
+      <div key={index} className="review-card">
+        <div className="review-stars">
+          {'★'.repeat(review.rating)}
+        </div>
+
+        <p className="review-text">
+          "{review.review}"
+        </p>
+
+        <span className="review-author">
+          — {review.name}
+        </span>
+      </div>
+    ))}
+  </div>
+</div>
+
+  <div className="feedback-form-card">
+    <h3 style={{ marginBottom: '16px' }}>Share Your Feedback</h3>
+
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        toast.success('Thank you for your feedback!');
+      }}
+    >
+      <input
+        type="text"
+        placeholder="Your Name"
+        className="modal-input"
+        required
+      />
+
+      <select className="modal-input" required>
+        <option value="">Select Rating</option>
+        <option value="5">★★★★★ (5)</option>
+        <option value="4">★★★★☆ (4)</option>
+        <option value="3">★★★☆☆ (3)</option>
+        <option value="2">★★☆☆☆ (2)</option>
+        <option value="1">★☆☆☆☆ (1)</option>
+      </select>
+
+      <textarea
+        placeholder="Tell us about your experience..."
+        className="modal-input"
+        rows="4"
+        required
+      />
+
+      <button
+        type="submit"
+        className="landing-btn-primary"
+        style={{ width: 'fit-content' }}
+      >
+        Submit Feedback
+      </button>
+    </form>
+  </div>
+{/* </section> */}
       {/* ===== CTA ===== */}
       <section className="landing-cta-section">
         <div className="cta-glow" />
