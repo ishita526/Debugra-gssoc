@@ -1286,6 +1286,8 @@ const resizingRef = useRef(false);
                 suggestOnTriggerCharacters: true,
                 quickSuggestions: true,
                 formatOnPaste: true,
+                multiCursorModifier: 'alt',
+                columnSelection: true,
               }}
             />
           </div>
