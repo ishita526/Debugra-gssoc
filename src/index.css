@@ -1808,20 +1808,24 @@ body {
   padding: 0;
 }
 
-/* ============ FEEDBACK PAGE ============ */
+/* ============ FEEDBACK PAGE (FIX FOR GSSOC 2026) ============ */
 .feedback-page {
-  min-height: calc(100vh - 260px);
+  /* FIX: Changed to height 100% to ensure the container uses all available space 
+     and doesn't clip the submit button or other controls when interacting with the form */
+  height: 100%; 
   overflow-y: auto;
   background: #0a0a0f;
   color: #e2e8f0;
   padding: 72px 24px;
+  box-sizing: border-box;
 }
 
 .feedback-shell {
   width: min(1080px, 100%);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+  /* Maintains the original 2-column layout from Captura.PNG */
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr); 
   gap: 40px;
   align-items: start;
 }
@@ -1897,6 +1901,14 @@ body {
   color: #e2e8f0;
   font: inherit;
   outline: none;
+}
+
+/* FIX: Resolution for the dropdown text contrast issue.
+   Forces select options to have a dark background and light text 
+   across all browsers (Chrome, Edge, etc.), making it 100% legible. */
+.feedback-form select option {
+  background: #111115;
+  color: #e2e8f0;
 }
 
 .feedback-form input:focus,
