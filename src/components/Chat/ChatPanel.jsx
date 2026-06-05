@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import {
   collection,
   addDoc,
@@ -503,3 +503,5 @@ export default function ChatPanel({ roomId, user, isOpen, onToggle }) {
     </>
   );
 }
+
+
